@@ -5,8 +5,14 @@
         <h1>Welcome to Utopian.io</h1>
         <p>Register with your GitHub account to get instant access to Utopian services and a free STEEM account and wallet. <a href="https://join.utopian.io" target="_blank">Learn More About Utopian</a></p>
         <div>
-          <button class="btn__signin" id="github" @click="authenticate('github')"><img src="./../assets/ic_github.svg"><span>SIGN IN WITH GITHUB</span></button>
-                  <small>The GitHub account linked to the Utopian services cannot be changed.</small>
+          <button
+            class="btn__signin g-recaptcha"
+            id="github"
+            data-sitekey="6Ld06lkUAAAAAGTusc2d373DU6PvotibJ6ilxpqX"
+            data-callback="authenticateV2">
+            <img src="./../assets/ic_github.svg"><span>SIGN IN WITH GITHUB</span>
+          </button>
+          <small>The GitHub account linked to the Utopian services cannot be changed.</small>
         </div>
         <!--<div><button class="btn__signin" id="facebook" @click="authenticate('facebook')"><img src="./../assets/ic_facebook.svg"><span>SIGN IN WITH FACEBOOK</span></button></div>-->
         <!--<div><button class="btn__signin" id="linkedin" @click="authenticate('linkedin')"><img src="./../assets/ic_linkedIn.svg"><span>SIGN IN WITH LINKEDIN</span></button></div>-->
@@ -31,6 +37,9 @@ export default {
   },
   methods: {
     signIn(to) { this.$router.push(to) },
+    authenticateV2() {
+      console.log('authenticateV2')
+    },
     authenticate(provider) {
     if(this.$cookies.get('c_a')) return  this.$notify({ group: 'main', text: 'You have already created an account through Utopian', type:'error' })
       this.$store.dispatch('authenticate', { provider })
